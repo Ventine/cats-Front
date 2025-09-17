@@ -44,6 +44,6 @@ Es un proyecto en constante evolución, abierto a experimentación y mejoras.
 ---
 
 <p align="center">
-  <em>Un microservicio sin frontend es como un gato sin maullar 🐾</em><br/><br/>
+  <em> 🐾</em><br/><br/>
   <strong>— Ventine ⚡</strong>
 </p>
