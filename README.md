@@ -1,59 +1,49 @@
-# CatsFront
+<h1 align="center">😺 Cats Front — Angular Client</h1>
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.2.2.
+<p align="center">
+  <img src="https://img.shields.io/badge/Angular-17-dd0031?style=for-the-badge&logo=angular" alt="Angular" />
+  <img src="https://img.shields.io/badge/TypeScript-5.x-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Status-Online-green?style=for-the-badge" alt="Status" />
+</p>
 
-## Development server
+---
 
-To start a local development server, run:
+<p align="center">
+  <em>Frontend en <strong>Angular</strong> para consumir los microservicios de <strong>Ventine</strong>. <br/>
+  Empezamos con el servicio de <strong>cats</strong> y la idea es ir sumando más integraciones a futuro.</em>
+</p>
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🌐 ¿Qué es este proyecto?
+- Cliente Angular que se conecta al backend de microservicios (Spring Boot).
+- Primer módulo: <strong>Cats</strong>, que muestra información obtenida del servicio correspondiente.
+- Arquitectura lista para crecer con nuevos módulos y endpoints.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Stack principal
+- 🅰️ Angular 17 (moderno y modular).
+- 📘 TypeScript 5.x (tipado estricto para no volverse loco).
+- 🔗 Consumo de REST APIs (HTTPClient + interceptores).
+- 🎨 Estilos con SCSS (flexibilidad total).
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🚀 Funcionalidades actuales
+- ✅ <strong>Cats Module:</strong> lista de gatos consumida desde el microservicio backend.
+- (Próximamente...) autenticación básica, más módulos y vistas dinámicas.
 
-```bash
-ng generate --help
-```
+---
 
-## Building
+## 👾 Sobre Ventine
+Este repo es la contraparte visual del universo de microservicios.  
+Aquí se arma la capa de presentación: lo que el usuario ve y con lo que interactúa.  
+Es un proyecto en constante evolución, abierto a experimentación y mejoras.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+<p align="center">
+  <em>Un microservicio sin frontend es como un gato sin maullar 🐾</em><br/><br/>
+  <strong>— Ventine ⚡</strong>
+</p>
