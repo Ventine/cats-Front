@@ -7,7 +7,3 @@ import { Component } from '@angular/core';
   template: `<p>Home works!</p>`,
 })
 export class HomeComponent {}
-
-export const routes: Routes = [
-  { path: '', component: HomeComponent },
-];
