@@ -1,7 +1,8 @@
-import 'zone.js'; // Required by Angular
+import 'zone.js';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { config } from './app/app.config';
-import { App } from './app/app';
 
-bootstrapApplication(App, config)
-  .catch((err) => console.error(err));
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error('❌ Error al iniciar la aplicación:', err));

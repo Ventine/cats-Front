@@ -1,16 +1,22 @@
-import 'zone.js/node'; // 👈 necesario en SSR para que Angular tenga NgZone
-
+import 'zone.js/node';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { App } from './app/app';
-import { config } from './app/app.config.server';
+import { provideRouter } from '@angular/router';
+import { AppComponent } from './app/app.component';
+import { routes } from './app/app.routes';
+import { provideServerRendering } from '@angular/platform-server';
 
 export function bootstrap(): Promise<void> {
-  return bootstrapApplication(App, config)
+  return bootstrapApplication(AppComponent, {
+    providers: [
+      provideRouter(routes),
+      provideServerRendering()
+    ]
+  })
     .then(() => {
-      console.log('✅ Application bootstrapped successfully');
+      console.log('✅ SSR: aplicación inicializada correctamente');
     })
     .catch((err) => {
-      console.error('❌ Bootstrap failed', err);
+      console.error('❌ SSR: error durante el bootstrap', err);
       throw err;
     });
 }
