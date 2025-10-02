@@ -1,13 +1,12 @@
-// app.config.server.ts
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideServerRendering } from '@angular/platform-server';
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { provideServerRendering, withRoutes } from '@angular/ssr';
+import { appConfig } from './app.config';
+import { serverRoutes } from './app.routes.server';
 
-import { routes } from './app.routes';
-
-export const appConfigServer: ApplicationConfig = {
+const serverConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
-    provideServerRendering(), // habilita SSR en Angular
-  ],
+    provideServerRendering(withRoutes(serverRoutes))
+  ]
 };
+
+export const config = mergeApplicationConfig(appConfig, serverConfig);
