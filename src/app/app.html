@@ -1,3 +1,120 @@
+<style>
+  :host {
+    --primary: #a7f3d0;   /* Verde pastel */
+    --secondary: #fbcfe8; /* Rosa pastel */
+    --accent: #fde68a;    /* Amarillo pastel */
+    --bg: #fdfdfd;
+    --card: #ffffff;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+
+    font-family: "Inter", sans-serif;
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+  }
+
+  header {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    letter-spacing: -0.5px;
+  }
+
+  header span {
+    font-size: 2rem;
+  }
+
+  main {
+    max-width: 1000px;
+    margin: auto;
+    padding: 2rem 1rem;
+  }
+
+  h2 {
+    color: var(--text-dark);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .api-panel {
+    background: var(--card);
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  select, button, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 0.6rem;
+    border: 1px solid #e2e8f0;
+    outline: none;
+  }
+
+  select, textarea {
+    background: #f9fafb;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  button {
+    background: var(--primary);
+    color: var(--text-dark);
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+    background: var(--secondary);
+  }
+
+  .response {
+    background: #f9fafb;
+    border-radius: 0.8rem;
+    padding: 1rem;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    white-space: pre-wrap;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+  }
+</style>
+
 <header>
   🐱 VENTINE – API Playground
 </header>
@@ -5,35 +122,38 @@
 <main>
   <div class="api-panel">
     <h2>Consumir Endpoint</h2>
+    
+    <div class="form-group">
+      <label for="endpoint">Selecciona un Endpoint:</label>
+      <select id="endpoint">
+        <option value="https://jsonplaceholder.typicode.com/posts?_limit=3">/posts</option>
+        <option value="https://jsonplaceholder.typicode.com/users?_limit=3">/users</option>
+        <option value="https://jsonplaceholder.typicode.com/comments?_limit=3">/comments</option>
+      </select>
+    </div>
 
-    <form (ngSubmit)="callApi()" #form="ngForm">
-      <div class="form-group">
-        <label>Selecciona un Endpoint:</label>
-        <select [(ngModel)]="endpoint" name="endpoint" required>
-          <option value="https://jsonplaceholder.typicode.com/posts?_limit=3">/posts</option>
-          <option value="https://jsonplaceholder.typicode.com/users?_limit=3">/users</option>
-          <option value="https://jsonplaceholder.typicode.com/comments?_limit=3">/comments</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="method">Método:</label>
+      <select id="method">
+        <option value="GET">GET</option>
+        <option value="POST">POST</option>
+        <option value="PUT">PUT</option>
+        <option value="DELETE">DELETE</option>
+      </select>
+    </div>
 
-      <div class="form-group">
-        <label>Método:</label>
-        <select [(ngModel)]="method" name="method">
-          <option *ngFor="let m of methods" [value]="m">{{ m }}</option>
-        </select>
-      </div>
+    <div class="form-group">
+      <label for="data">Datos (JSON para POST/PUT):</label>
+      <textarea id="data" placeholder='{"title":"foo","body":"bar","userId":1}'></textarea>
+    </div>
 
-      <div class="form-group">
-        <label>Datos (JSON para POST/PUT):</label>
-        <textarea [(ngModel)]="dataInput" name="dataInput" placeholder='{"title":"foo","body":"bar","userId":1}'></textarea>
-      </div>
-
-      <button type="submit" [disabled]="loading">🚀 Consumir API</button>
-    </form>
+    <div class="form-group">
+      <button onclick="callApi()">🚀 Consumir API</button>
+    </div>
 
     <h3>Respuesta:</h3>
-    <div class="response">
-      {{ response | json }}
+    <div class="response" id="response-box">
+      Esperando respuesta...
     </div>
   </div>
 </main>
@@ -41,3 +161,28 @@
 <footer>
   © 2025 🐱 Ventine – Tu playground de APIs
 </footer>
+
+<script>
+  async function callApi() {
+    const endpoint = document.getElementById("endpoint").value;
+    const method = document.getElementById("method").value;
+    const dataInput = document.getElementById("data").value;
+    const responseBox = document.getElementById("response-box");
+    responseBox.innerHTML = "⏳ Cargando...";
+
+    try {
+      let options = { method };
+
+      if (["POST", "PUT"].includes(method)) {
+        options.headers = { "Content-Type": "application/json" };
+        options.body = dataInput || "{}";
+      }
+
+      const res = await fetch(endpoint, options);
+      const data = await res.json();
+      responseBox.innerHTML = JSON.stringify(data, null, 2);
+    } catch (error) {
+      responseBox.innerHTML = "❌ Error: " + error.message;
+    }
+  }
+</script>
